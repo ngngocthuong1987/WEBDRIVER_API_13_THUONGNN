@@ -133,8 +133,8 @@ public class Topic_04_05_XpathAndCss {
 		StringBuilder emailString = new StringBuilder();
 		Random rnd = new Random();
 		while (emailString.length() < 10) {
-		    int index = (int) (rnd.nextFloat() * randomChar.length());
-		    emailString.append(randomChar.charAt(index));
+			int index = (int) (rnd.nextFloat() * randomChar.length());
+			emailString.append(randomChar.charAt(index));
 		}
 		return emailString.toString().concat("@gmail.com");
 	}
