@@ -6,6 +6,8 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -19,29 +21,30 @@ public class Topic_04_05_XpathAndCss {
 	static final String SHORT_PASSWORD_ERROR_MESSAGE = "Please enter 6 or more characters without leading or trailing spaces.";
 	static final String LOGIN_ERROR_MESSAGE = "Invalid login or password.";
 	static final String REGISTER_SUCCESS_MESSAGE = "Thank you for registering with Main Website Store.";
+	static final String HOME_PAGE_TITLE = "Home page";
 
 	// XPath of link, button
-	static final String XPATH_ACCOUNT_LINK = ".//*[@id='header']/div/div[2]/div/a";
-	static final String XPATH_MY_ACCOUNT_LINK = ".//*[@id='header-account']/div/ul/li[1]/a";
-	static final String XPATH_LOGIN_BUTTON = ".//*[@id='send2']";
-	static final String XPATH_INPUT_EMAIL_LOGIN = ".//*[@id='email']";
-	static final String XPATH_INPUT_PASSWORD_LOGIN = ".//*[@id='pass']";
-	static final String XPATH_CREATE_ACCOUNT_BUTTON = ".//*[@id='login-form']/div/div[1]/div[2]/a";
-	static final String XPATH_INPUT_FIRST_NAME = ".//*[@id='firstname']";
-	static final String XPATH_INPUT_LAST_NAME = ".//*[@id='lastname']";
-	static final String XPATH_INPUT_EMAIL = ".//*[@id='email_address']";
-	static final String XPATH_INPUT_PASSWORD = ".//*[@id='password']";
-	static final String XPATH_INPUT_CONFIRM_PASSWORD = ".//*[@id='confirmation']";
-	static final String XPATH_REGISTER_BUTTON = ".//*[@id='form-validate']/div[2]/button";
-	static final String XPATH_LOGOUT_LINK = ".//*[@id='header-account']/div/ul/li[5]/a";
+	static final String XPATH_ACCOUNT_LINK = "//a[@class='skip-link skip-account']";
+	static final String XPATH_MY_ACCOUNT_LINK = "//div[@id='header-account']//a[@title='My Account']";
+	static final String XPATH_LOGIN_BUTTON = "//button[@id='send2']";
+	static final String XPATH_INPUT_EMAIL_LOGIN = "//input[@id='email']";
+	static final String XPATH_INPUT_PASSWORD_LOGIN = "//input[@id='pass']";
+	static final String XPATH_CREATE_ACCOUNT_BUTTON = "//form[@id='login-form']//a[@title='Create an Account']";
+	static final String XPATH_INPUT_FIRST_NAME = "//input[@id='firstname']";
+	static final String XPATH_INPUT_LAST_NAME = "//input[@id='lastname']";
+	static final String XPATH_INPUT_EMAIL = "//input[@id='email_address']";
+	static final String XPATH_INPUT_PASSWORD = "//input[@id='password']";
+	static final String XPATH_INPUT_CONFIRM_PASSWORD = "//input[@id='confirmation']";
+	static final String XPATH_REGISTER_BUTTON = "//form[@id='form-validate']//button[@title='Register']";
+	static final String XPATH_LOGOUT_LINK = "//div[@id='header-account']//a[@title='Log Out']";
 
 	// XPath of message
-	static final String XPATH_REQUIRED_EMAIL_MESSAGE = ".//*[@id='advice-required-entry-email']";
-	static final String XPATH_REQUIRED_PASS_MESSAGE = ".//*[@id='advice-required-entry-pass']";
-	static final String XPATH_EMAIL_INVALID_MESSAGE = ".//*[@id='advice-validate-email-email']";
-	static final String XPATH_SHORT_PASSWORD_MESSAGE = ".//*[@id='advice-validate-password-pass']";
-	static final String XPATH_INVALID_LOGIN_MESSAGE = ".//*[@id='top']/body/div/div/div[2]/div/div/div/ul/li/ul/li/span";
-	static final String XPATH_REGISTER_SUCCESS_MESSAGE = ".//*[@id='top']/body/div/div/div[2]/div/div[2]/div/div/ul/li/ul/li/span";
+	static final String XPATH_REQUIRED_EMAIL_MESSAGE = "//div[@id='advice-required-entry-email']";
+	static final String XPATH_REQUIRED_PASS_MESSAGE = "//div[@id='advice-required-entry-pass']";
+	static final String XPATH_EMAIL_INVALID_MESSAGE = "//div[@id='advice-validate-email-email']";
+	static final String XPATH_SHORT_PASSWORD_MESSAGE = "//div[@id='advice-validate-password-pass']";
+	static final String XPATH_INVALID_LOGIN_MESSAGE = "//li[@class='error-msg']";
+	static final String XPATH_REGISTER_SUCCESS_MESSAGE = "//li[@class='success-msg']";
 
 	static final String WEBSITE_URL = "http://live.demoguru99.com/";
 	WebDriver driver;
@@ -117,8 +120,9 @@ public class Topic_04_05_XpathAndCss {
 		Assert.assertEquals(resultText, REGISTER_SUCCESS_MESSAGE);
 		driver.findElement(By.xpath(XPATH_ACCOUNT_LINK)).click();
 		driver.findElement(By.xpath(XPATH_LOGOUT_LINK)).click();
-		String homepageTitle = driver.getTitle();
-		Assert.assertEquals(homepageTitle, "Home page");
+		WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(ExpectedConditions.titleIs(HOME_PAGE_TITLE));
+		Assert.assertEquals(driver.getTitle(), HOME_PAGE_TITLE);
 	}
 
 	@AfterClass
