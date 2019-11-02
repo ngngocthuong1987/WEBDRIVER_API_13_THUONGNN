@@ -63,10 +63,8 @@ public class Topic_04_05_XpathAndCss {
 		driver.findElement(By.xpath(XPATH_ACCOUNT_LINK)).click();
 		driver.findElement(By.xpath(XPATH_MY_ACCOUNT_LINK)).click();
 		driver.findElement(By.xpath(XPATH_LOGIN_BUTTON)).click();
-		String resultTextEmail = driver.findElement(By.xpath(XPATH_REQUIRED_EMAIL_MESSAGE)).getText();
-		String resultTextId = driver.findElement(By.xpath(XPATH_REQUIRED_PASS_MESSAGE)).getText();
-		Assert.assertEquals(resultTextEmail, REQUIRED_ERROR_MESSAGE);
-		Assert.assertEquals(resultTextId, REQUIRED_ERROR_MESSAGE);
+		Assert.assertEquals(REQUIRED_ERROR_MESSAGE, driver.findElement(By.xpath(XPATH_REQUIRED_EMAIL_MESSAGE)).getText());
+		Assert.assertEquals(REQUIRED_ERROR_MESSAGE, driver.findElement(By.xpath(XPATH_REQUIRED_PASS_MESSAGE)).getText());
 	}
 
 	@Test
@@ -76,8 +74,7 @@ public class Topic_04_05_XpathAndCss {
 		driver.findElement(By.xpath(XPATH_MY_ACCOUNT_LINK)).click();
 		driver.findElement(By.xpath(XPATH_INPUT_EMAIL_LOGIN)).sendKeys("123434234@12312.123123");
 		driver.findElement(By.xpath(XPATH_LOGIN_BUTTON)).click();
-		String resultText = driver.findElement(By.xpath(XPATH_EMAIL_INVALID_MESSAGE)).getText();
-		Assert.assertEquals(resultText, EMAIL_ERROR_MESSAGE);
+		Assert.assertEquals(EMAIL_ERROR_MESSAGE, driver.findElement(By.xpath(XPATH_EMAIL_INVALID_MESSAGE)).getText());
 	}
 
 	@Test
@@ -88,8 +85,7 @@ public class Topic_04_05_XpathAndCss {
 		driver.findElement(By.xpath(XPATH_INPUT_EMAIL_LOGIN)).sendKeys("automation@gmail.com");
 		driver.findElement(By.xpath(XPATH_INPUT_PASSWORD_LOGIN)).sendKeys("123");
 		driver.findElement(By.xpath(XPATH_LOGIN_BUTTON)).click();
-		String resultText = driver.findElement(By.xpath(XPATH_SHORT_PASSWORD_MESSAGE)).getText();
-		Assert.assertEquals(resultText, SHORT_PASSWORD_ERROR_MESSAGE);
+		Assert.assertEquals(SHORT_PASSWORD_ERROR_MESSAGE, driver.findElement(By.xpath(XPATH_SHORT_PASSWORD_MESSAGE)).getText());
 	}
 
 	@Test
@@ -100,8 +96,7 @@ public class Topic_04_05_XpathAndCss {
 		driver.findElement(By.xpath(XPATH_INPUT_EMAIL_LOGIN)).sendKeys("automation@gmail.com");
 		driver.findElement(By.xpath(XPATH_INPUT_PASSWORD_LOGIN)).sendKeys("123123123");
 		driver.findElement(By.xpath(XPATH_LOGIN_BUTTON)).click();
-		String resultText = driver.findElement(By.xpath(XPATH_INVALID_LOGIN_MESSAGE)).getText();
-		Assert.assertEquals(resultText, LOGIN_ERROR_MESSAGE);
+		Assert.assertEquals(LOGIN_ERROR_MESSAGE, driver.findElement(By.xpath(XPATH_INVALID_LOGIN_MESSAGE)).getText());
 	}
 
 	@Test
@@ -116,13 +111,14 @@ public class Topic_04_05_XpathAndCss {
 		driver.findElement(By.xpath(XPATH_INPUT_PASSWORD)).sendKeys("abc123456");
 		driver.findElement(By.xpath(XPATH_INPUT_CONFIRM_PASSWORD)).sendKeys("abc123456");
 		driver.findElement(By.xpath(XPATH_REGISTER_BUTTON)).click();
-		String resultText = driver.findElement(By.xpath(XPATH_REGISTER_SUCCESS_MESSAGE)).getText();
-		Assert.assertEquals(resultText, REGISTER_SUCCESS_MESSAGE);
+		Assert.assertEquals(REGISTER_SUCCESS_MESSAGE, driver.findElement(By.xpath(XPATH_REGISTER_SUCCESS_MESSAGE)).getText());
 		driver.findElement(By.xpath(XPATH_ACCOUNT_LINK)).click();
 		driver.findElement(By.xpath(XPATH_LOGOUT_LINK)).click();
+
+		// Wait browser redirect 20 seconds
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.titleIs(HOME_PAGE_TITLE));
-		Assert.assertEquals(driver.getTitle(), HOME_PAGE_TITLE);
+		Assert.assertEquals(HOME_PAGE_TITLE, driver.getTitle());
 	}
 
 	@AfterClass
@@ -138,7 +134,7 @@ public class Topic_04_05_XpathAndCss {
 		StringBuilder emailString = new StringBuilder();
 		Random rnd = new Random();
 		while (emailString.length() < 10) {
-			int index = (int) (rnd.nextFloat() * randomChar.length());
+			int index = rnd.nextInt(randomChar.length());
 			emailString.append(randomChar.charAt(index));
 		}
 		return emailString.toString().concat("@gmail.com");
