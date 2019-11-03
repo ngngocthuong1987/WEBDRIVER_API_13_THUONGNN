@@ -24,7 +24,7 @@ public class Topic_04_05_XpathAndCss {
 	static final String HOME_PAGE_TITLE = "Home page";
 
 	// XPath of link, button
-	static final String XPATH_ACCOUNT_LINK = "//a[@data-target-element='#header-account']";
+	static final String XPATH_ACCOUNT_LINK = "//div[@class='account-cart-wrapper']//span[text()='Account']";
 	static final String XPATH_MY_ACCOUNT_LINK = "//div[@id='header-account']//a[@title='My Account']";
 	static final String XPATH_LOGIN_BUTTON = "//button[@id='send2']";
 	static final String XPATH_INPUT_EMAIL_LOGIN = "//input[@id='email']";
