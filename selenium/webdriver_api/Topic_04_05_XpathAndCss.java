@@ -24,19 +24,19 @@ public class Topic_04_05_XpathAndCss {
 	static final String HOME_PAGE_TITLE = "Home page";
 
 	// XPath of link, button
-	static final String XPATH_ACCOUNT_LINK = "//a[@class='skip-link skip-account']";
+	static final String XPATH_ACCOUNT_LINK = "//a[@data-target-element='#header-account']";
 	static final String XPATH_MY_ACCOUNT_LINK = "//div[@id='header-account']//a[@title='My Account']";
 	static final String XPATH_LOGIN_BUTTON = "//button[@id='send2']";
 	static final String XPATH_INPUT_EMAIL_LOGIN = "//input[@id='email']";
 	static final String XPATH_INPUT_PASSWORD_LOGIN = "//input[@id='pass']";
-	static final String XPATH_CREATE_ACCOUNT_BUTTON = "//form[@id='login-form']//a[@title='Create an Account']";
+	static final String XPATH_CREATE_ACCOUNT_BUTTON = "//a[@title='Create an Account']";
 	static final String XPATH_INPUT_FIRST_NAME = "//input[@id='firstname']";
 	static final String XPATH_INPUT_LAST_NAME = "//input[@id='lastname']";
 	static final String XPATH_INPUT_EMAIL = "//input[@id='email_address']";
 	static final String XPATH_INPUT_PASSWORD = "//input[@id='password']";
 	static final String XPATH_INPUT_CONFIRM_PASSWORD = "//input[@id='confirmation']";
-	static final String XPATH_REGISTER_BUTTON = "//form[@id='form-validate']//button[@title='Register']";
-	static final String XPATH_LOGOUT_LINK = "//div[@id='header-account']//a[@title='Log Out']";
+	static final String XPATH_REGISTER_BUTTON = "//button[@title='Register']";
+	static final String XPATH_LOGOUT_LINK = "//a[@title='Log Out']";
 
 	// XPath of message
 	static final String XPATH_REQUIRED_EMAIL_MESSAGE = "//div[@id='advice-required-entry-email']";
