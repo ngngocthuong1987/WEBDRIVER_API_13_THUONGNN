@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class Topic_04_05_XpathAndCss {
+public class Topic_04_05_Xpath_And_Css {
 
 	// CONSTANT: Message expected
 	static final String REQUIRED_ERROR_MESSAGE = "This is a required field.";
