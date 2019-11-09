@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -17,6 +18,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 
 	// Setting constant
 	static final String WEBSITE_URL_TC01 = "http://demo.guru99.com/v4";
+	static final String WEBSITE_URL_TC02 = "https://automationfc.github.io/basic-form/index.html";
 	static final String HOME_PAGE_TITLE = "Guru99 Bank Manager HomePage";
 
 	// Setting some By object of elements xpath
@@ -37,6 +39,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	By createCustomerSubmitButton = By.xpath("//input[@name='sub']");
 	By editCustomerSubmitButton = By.xpath("//input[@name='AccSubmit']");
 	By customerIdInput = By.xpath("//input[@name='cusid']");
+	By jobRole01Select = By.xpath("//select[@id='job1']");
 
 	//Setting some By object for verify value
 	By customerIdVerify = By.xpath("//td[text()='Customer ID']/following-sibling::td");
@@ -167,6 +170,30 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		Assert.assertTrue(driver.findElement(pinVerify).getText().equals(pinEdit));
 		Assert.assertTrue(driver.findElement(mobileNumberVerify).getText().equals(mobileNumberEdit));
 		Assert.assertTrue(driver.findElement(emailVerify).getText().equals(emailEdit));
+	}
+
+	@Test
+	public void TC_02_ProcessWithDropdownAndList() {
+		driver.get(WEBSITE_URL_TC02);
+		Select jobRole01 = new Select(driver.findElement(jobRole01Select));
+
+		// Check dropdown is multi select
+		Assert.assertFalse(jobRole01.isMultiple());
+
+		// Select by method selectByVisibleText() and check
+		jobRole01.selectByVisibleText("Automation Tester");
+		Assert.assertEquals("Automation Tester", jobRole01.getFirstSelectedOption().getText());
+
+		// Select by method selectByValue() and check
+		jobRole01.selectByValue("manual");
+		Assert.assertEquals("Manual Tester", jobRole01.getFirstSelectedOption().getText());
+
+		// Select by method selectByIndex() and check
+		jobRole01.selectByIndex(3);
+		Assert.assertEquals("Mobile Tester", jobRole01.getFirstSelectedOption().getText());
+
+		// Check size of dropdown is 5
+		Assert.assertEquals(5, jobRole01.getOptions().size());
 	}
 
 	@AfterClass
