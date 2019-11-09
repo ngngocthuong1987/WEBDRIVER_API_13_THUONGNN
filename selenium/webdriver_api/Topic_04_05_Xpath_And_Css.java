@@ -1,6 +1,5 @@
 package webdriver_api;
 
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -24,7 +23,7 @@ public class Topic_04_05_Xpath_And_Css {
 	String invalidPassword = "123123123";
 	String firstName = "THUONG";
 	String lastName = "NGUYEN";
-	String email = getRandomEmail();
+	String email = Utils.getRandomEmail();
 	String validPassword = "123456789";
 
 	// CONSTANT: Message expected
@@ -139,19 +138,5 @@ public class Topic_04_05_Xpath_And_Css {
 	@AfterClass
 	public void terminateBrowser() {
 		driver.quit();
-	}
-
-/*
- * The method create random email
- */
-	public String getRandomEmail() {
-		String randomChar = "abcdefghijklmnopqrstuvwxyz1234567890";
-		StringBuilder emailString = new StringBuilder();
-		Random rnd = new Random();
-		while (emailString.length() < 10) {
-			int index = rnd.nextInt(randomChar.length());
-			emailString.append(randomChar.charAt(index));
-		}
-		return emailString.toString().concat("@gmail.com");
 	}
 }

@@ -1,8 +1,5 @@
 package webdriver_api;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -66,7 +63,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	String stateNew = "Thanh Khe";
 	String pinNew = "123456";
 	String mobileNumberNew = "0979161024";
-	String emailNew = getRandomEmail();
+	String emailNew = Utils.getRandomEmail();
 	String passwordNew = "123456";
 
 	// Data for edit customer
@@ -75,7 +72,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	String stateEdit = "Tan Binh";
 	String pinEdit = "457832";
 	String mobileNumberEdit = "0936123123";
-	String emailEdit = getRandomEmail();
+	String emailEdit = Utils.getRandomEmail();
 
 
 	@BeforeClass
@@ -131,7 +128,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		// Verify new informations are created
 		String customerId = driver.findElement(customerIdVerify).getText();
 		Assert.assertTrue(driver.findElement(customerNameVerify).getText().equals(customerName));
-		Assert.assertTrue(driver.findElement(birthDayVerify).getText().equals(changeFormatDate(dateOfBirth)));
+		Assert.assertTrue(driver.findElement(birthDayVerify).getText().equals(Utils.changeFormatDate(dateOfBirth)));
 		Assert.assertTrue(driver.findElement(addressVerify).getText().equals(addressNew));
 		Assert.assertTrue(driver.findElement(cityVerify).getText().equals(cityNew));
 		Assert.assertTrue(driver.findElement(stateVerify).getText().equals(stateNew));
@@ -177,32 +174,5 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		driver.quit();
 	}
 
-	/*
-	 * The method create random email
-	 */
-	private String getRandomEmail() {
-		String randomChar = "abcdefghijklmnopqrstuvwxyz1234567890";
-		StringBuilder emailString = new StringBuilder();
-		Random rnd = new Random();
-		while (emailString.length() < 10) {
-			int index = rnd.nextInt(randomChar.length());
-			emailString.append(randomChar.charAt(index));
-		}
-		return emailString.toString().concat("@gmail.com");
-	}
 
-	/*
-	 * The method change format datetime from mm/dd/yyyy to yyyy-mm-dd
-	 */
-	private String changeFormatDate(String date) {
-		String newDateTime = null;
-		try {
-			SimpleDateFormat oldFormat = new SimpleDateFormat("mm/dd/yyyy");;
-			SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-mm-dd");
-			newDateTime =  newFormat.format(oldFormat.parse(date)).toString();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return newDateTime;
-	}
 }
