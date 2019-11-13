@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 public class Utils {
 
 	/*
@@ -35,5 +38,19 @@ public class Utils {
 		return newDateTime;
 	}
 
+	/*
+	 * The method get text of web element
+	 */
+	public static String getTextElement(WebDriver driver, By by) {
+		return driver.findElement(by).getText();
+	}
+
+	/*
+	 * The method get text of web element
+	 */
+	public static void sendKeyElement(WebDriver driver, By by, String value) {
+		driver.findElement(by).clear();
+		driver.findElement(by).sendKeys(value);
+	}
 
 }

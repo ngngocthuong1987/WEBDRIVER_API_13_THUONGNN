@@ -1,11 +1,16 @@
 package webdriver_api;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -19,6 +24,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	// Setting constant
 	static final String WEBSITE_URL_TC01 = "http://demo.guru99.com/v4";
 	static final String WEBSITE_URL_TC02 = "https://automationfc.github.io/basic-form/index.html";
+	static final String WEBSITE_URL_JQUERY_TC03 = "http://jqueryui.com/resources/demos/selectmenu/default.html";
 	static final String HOME_PAGE_TITLE = "Guru99 Bank Manager HomePage";
 
 	// Setting some By object of elements xpath
@@ -53,8 +59,14 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	By mobileNumberVerify = By.xpath("//td[text()='Mobile No.']/following-sibling::td");
 	By emailVerify = By.xpath("//td[text()='Email']/following-sibling::td");
 
+	By jQueryDropdown = By.xpath("//span[@id='number-button']");
+	By allItemsJQueryDropdown = By.xpath("//ul[@id='number-menu']/li/div");
+	By valueItemExpected = By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text']");
+
 	// Setting varialbes
 	WebDriver driver;
+	WebDriverWait waitExplicit;
+	JavascriptExecutor jsExecutor;
 	String userName = "mngr232324";
 	String passWord = "ErugEju";
 
@@ -83,6 +95,8 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 
 		System.setProperty("webdriver.chrome.driver", "libraries/chromedriver.exe");
 		driver = new ChromeDriver();
+		waitExplicit = new WebDriverWait(driver, 30);
+		jsExecutor = (JavascriptExecutor) driver;
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
@@ -129,15 +143,15 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		driver.findElement(createCustomerSubmitButton).click();
 
 		// Verify new informations are created
-		String customerId = driver.findElement(customerIdVerify).getText();
-		Assert.assertTrue(driver.findElement(customerNameVerify).getText().equals(customerName));
-		Assert.assertTrue(driver.findElement(birthDayVerify).getText().equals(Utils.changeFormatDate(dateOfBirth)));
-		Assert.assertTrue(driver.findElement(addressVerify).getText().equals(addressNew));
-		Assert.assertTrue(driver.findElement(cityVerify).getText().equals(cityNew));
-		Assert.assertTrue(driver.findElement(stateVerify).getText().equals(stateNew));
-		Assert.assertTrue(driver.findElement(pinVerify).getText().equals(pinNew));
-		Assert.assertTrue(driver.findElement(mobileNumberVerify).getText().equals(mobileNumberNew));
-		Assert.assertTrue(driver.findElement(emailVerify).getText().equals(emailNew));
+		String customerId = Utils.getTextElement(driver, customerIdVerify);
+		Assert.assertTrue(Utils.getTextElement(driver, customerNameVerify).equals(customerName));
+		Assert.assertTrue(Utils.getTextElement(driver, birthDayVerify).equals(Utils.changeFormatDate(dateOfBirth)));
+		Assert.assertTrue(Utils.getTextElement(driver, addressVerify).equals(addressNew));
+		Assert.assertTrue(Utils.getTextElement(driver, cityVerify).equals(cityNew));
+		Assert.assertTrue(Utils.getTextElement(driver, stateVerify).equals(stateNew));
+		Assert.assertTrue(Utils.getTextElement(driver, pinVerify).equals(pinNew));
+		Assert.assertTrue(Utils.getTextElement(driver, mobileNumberVerify).equals(mobileNumberNew));
+		Assert.assertTrue(Utils.getTextElement(driver, emailVerify).equals(emailNew));
 
 		// Go to edit customer
 		driver.findElement(editCustomerLink).click();
@@ -149,27 +163,21 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		Assert.assertTrue(driver.findElement(addressTextArea).getAttribute("value").equals(addressNew));
 
 		// Edit information of some fields not disable
-		driver.findElement(addressTextArea).clear();
-		driver.findElement(addressTextArea).sendKeys(addressEdit);
-		driver.findElement(cityInput).clear();
-		driver.findElement(cityInput).sendKeys(cityEdit);
-		driver.findElement(stateInput).clear();
-		driver.findElement(stateInput).sendKeys(stateEdit);
-		driver.findElement(pinInput).clear();
-		driver.findElement(pinInput).sendKeys(pinEdit);
-		driver.findElement(mobileNumberInput).clear();
-		driver.findElement(mobileNumberInput).sendKeys(mobileNumberEdit);
-		driver.findElement(emailInput).clear();
-		driver.findElement(emailInput).sendKeys(emailEdit);
+		Utils.sendKeyElement(driver, addressTextArea, addressEdit);
+		Utils.sendKeyElement(driver, cityInput, cityEdit);
+		Utils.sendKeyElement(driver, stateInput, stateEdit);
+		Utils.sendKeyElement(driver, pinInput, pinEdit);
+		Utils.sendKeyElement(driver, mobileNumberInput, mobileNumberEdit);
+		Utils.sendKeyElement(driver, emailInput, emailEdit);
 		driver.findElement(createCustomerSubmitButton).click();
 
 		// Verify new informations after edit
-		Assert.assertTrue(driver.findElement(addressVerify).getText().equals(addressEdit));
-		Assert.assertTrue(driver.findElement(cityVerify).getText().equals(cityEdit));
-		Assert.assertTrue(driver.findElement(stateVerify).getText().equals(stateEdit));
-		Assert.assertTrue(driver.findElement(pinVerify).getText().equals(pinEdit));
-		Assert.assertTrue(driver.findElement(mobileNumberVerify).getText().equals(mobileNumberEdit));
-		Assert.assertTrue(driver.findElement(emailVerify).getText().equals(emailEdit));
+		Assert.assertTrue(Utils.getTextElement(driver, addressVerify).equals(addressEdit));
+		Assert.assertTrue(Utils.getTextElement(driver, cityVerify).equals(cityEdit));
+		Assert.assertTrue(Utils.getTextElement(driver, stateVerify).equals(stateEdit));
+		Assert.assertTrue(Utils.getTextElement(driver, pinVerify).equals(pinEdit));
+		Assert.assertTrue(Utils.getTextElement(driver, mobileNumberVerify).equals(mobileNumberEdit));
+		Assert.assertTrue(Utils.getTextElement(driver, emailVerify).equals(emailEdit));
 	}
 
 	@Test
@@ -182,18 +190,52 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 
 		// Select by method selectByVisibleText() and check
 		jobRole01.selectByVisibleText("Automation Tester");
-		Assert.assertEquals("Automation Tester", jobRole01.getFirstSelectedOption().getText());
+		Assert.assertEquals(jobRole01.getFirstSelectedOption().getText(), "Automation Tester");
 
 		// Select by method selectByValue() and check
 		jobRole01.selectByValue("manual");
-		Assert.assertEquals("Manual Tester", jobRole01.getFirstSelectedOption().getText());
+		Assert.assertEquals(jobRole01.getFirstSelectedOption().getText(), "Manual Tester");
 
 		// Select by method selectByIndex() and check
 		jobRole01.selectByIndex(3);
-		Assert.assertEquals("Mobile Tester", jobRole01.getFirstSelectedOption().getText());
+		Assert.assertEquals(jobRole01.getFirstSelectedOption().getText(), "Mobile Tester");
 
 		// Check size of dropdown is 5
 		Assert.assertEquals(5, jobRole01.getOptions().size());
+	}
+
+	@Test
+	public void TC_03_JQueryDropdown() {
+		try {
+			driver.get(WEBSITE_URL_JQUERY_TC03);
+			selectItemInDropdown(jQueryDropdown, allItemsJQueryDropdown, "19");
+			Assert.assertEquals(Utils.getTextElement(driver, valueItemExpected), "19");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * The method get expected item in dropdown
+	 */
+	public void selectItemInDropdown(By dropdownBy, By allItemInDropdownBy, String expectedItemValue) throws InterruptedException {
+		// Click in dropdown for display all items
+		WebElement paretnDropdown = driver.findElement(dropdownBy);
+		paretnDropdown.click();
+		Thread.sleep(3000);
+
+		// Wait all items loaded
+		waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(allItemInDropdownBy));
+
+		List<WebElement> allItems = driver.findElements(allItemInDropdownBy);
+		for (WebElement item : allItems) {
+			if (item.getText().equals(expectedItemValue)) {
+				jsExecutor.executeScript("arguments[0].scrollIntoView(true);", item);
+				Thread.sleep(1000);
+				item.click();
+				break;
+			}
+		}
 	}
 
 	@AfterClass
