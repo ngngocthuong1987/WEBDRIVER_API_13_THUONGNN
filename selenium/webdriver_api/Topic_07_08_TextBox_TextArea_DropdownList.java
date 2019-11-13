@@ -25,6 +25,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	static final String WEBSITE_URL_TC01 = "http://demo.guru99.com/v4";
 	static final String WEBSITE_URL_TC02 = "https://automationfc.github.io/basic-form/index.html";
 	static final String WEBSITE_URL_JQUERY_TC03 = "http://jqueryui.com/resources/demos/selectmenu/default.html";
+	static final String WEBSITE_URL_ANGULAR_TC03 = "https://material.angular.io/components/select/examples";
 	static final String HOME_PAGE_TITLE = "Guru99 Bank Manager HomePage";
 
 	// Setting some By object of elements xpath
@@ -47,7 +48,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	By customerIdInput = By.xpath("//input[@name='cusid']");
 	By jobRole01Select = By.xpath("//select[@id='job1']");
 
-	//Setting some By object for verify value
+	// Setting some By object for verify value
 	By customerIdVerify = By.xpath("//td[text()='Customer ID']/following-sibling::td");
 	By customerNameVerify = By.xpath("//td[text()='Customer Name']/following-sibling::td");
 	By genderVerify = By.xpath("//td[text()='Gender']/following-sibling::td");
@@ -59,9 +60,18 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	By mobileNumberVerify = By.xpath("//td[text()='Mobile No.']/following-sibling::td");
 	By emailVerify = By.xpath("//td[text()='Email']/following-sibling::td");
 
+	// JQuery dropdown test case
 	By jQueryDropdown = By.xpath("//span[@id='number-button']");
 	By allItemsJQueryDropdown = By.xpath("//ul[@id='number-menu']/li/div");
-	By valueItemExpected = By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text']");
+	By valueItemJQueryDropdownExpected = By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text']");
+
+	// Angular dropdown test case
+	By agularDropdown = By.xpath("//label/mat-label[text()='State']");
+	By allItemsAgularDropdown = By.xpath("//div[contains(@class, 'mat-primary')]/mat-option");
+	By valueItemAgularDropdownExpected = By.xpath("//div[contains(@class, 'mat-select-value')]//span[text()=\"New York\"]");
+
+
+
 
 	// Setting varialbes
 	WebDriver driver;
@@ -209,7 +219,18 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		try {
 			driver.get(WEBSITE_URL_JQUERY_TC03);
 			selectItemInDropdown(jQueryDropdown, allItemsJQueryDropdown, "19");
-			Assert.assertEquals(Utils.getTextElement(driver, valueItemExpected), "19");
+			Assert.assertEquals(Utils.getTextElement(driver, valueItemJQueryDropdownExpected), "19");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void TC_03_AngularDropdown() {
+		try {
+			driver.get(WEBSITE_URL_ANGULAR_TC03);
+			selectItemInDropdown(agularDropdown, allItemsAgularDropdown, "New York");
+			Assert.assertEquals(Utils.getTextElement(driver, valueItemAgularDropdownExpected), "New York");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -221,12 +242,15 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	public void selectItemInDropdown(By dropdownBy, By allItemInDropdownBy, String expectedItemValue) throws InterruptedException {
 		// Click in dropdown for display all items
 		WebElement paretnDropdown = driver.findElement(dropdownBy);
-		paretnDropdown.click();
-		Thread.sleep(3000);
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", paretnDropdown);
+		Thread.sleep(2000);
+		jsExecutor.executeScript("arguments[0].click();", paretnDropdown);
+		Thread.sleep(2000);
 
 		// Wait all items loaded
 		waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(allItemInDropdownBy));
 
+		// Loop and get expected item
 		List<WebElement> allItems = driver.findElements(allItemInDropdownBy);
 		for (WebElement item : allItems) {
 			if (item.getText().equals(expectedItemValue)) {
