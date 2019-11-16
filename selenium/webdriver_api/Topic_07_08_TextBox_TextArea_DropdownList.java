@@ -250,7 +250,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	}
 
 	@Test
-	public void TC_03_AngularDropdown() {
+	public void TC_04_AngularDropdown() {
 		try {
 			driver.get(WEBSITE_URL_ANGULAR_TC03);
 			selectItemInDropdown(agularDropdown, allItemsAgularDropdown, "New York");
@@ -261,7 +261,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	}
 
 	@Test
-	public void TC_04_ReactJsDropdown() {
+	public void TC_05_ReactJsDropdown() {
 		try {
 			driver.get(WEBSITE_URL_REACTJS_TC04);
 			selectItemInDropdown(reactJsDropdown, allItemsReactJsDropdown, "Matt");
@@ -272,7 +272,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	}
 
 	@Test
-	public void TC_05_VueJsDropdown() {
+	public void TC_06_VueJsDropdown() {
 		try {
 			driver.get(WEBSITE_URL_VUEJS_TC05);
 			selectItemInDropdown(vueJsDropdown, allItemsVueJsDropdown, "Second Option");
@@ -283,7 +283,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	}
 
 	@Test
-	public void TC_06_EditableDropdown() {
+	public void TC_07_EditableDropdown() {
 		try {
 			driver.get(WEBSITE_URL_EDITABLE_TC06);
 			selectItemInEditableDropdown(editableDropdown, allItemsEditableDropdown, "Audi");
@@ -294,7 +294,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	}
 
 	@Test
-	public void TC_07_MultiSelectItem() {
+	public void TC_08_MultiSelectItem() {
 		try {
 			driver.get(WEBSITE_URL_MULTI_SELECT_TC07);
 			driver.switchTo().frame(driver.findElement(iframe));
