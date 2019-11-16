@@ -313,7 +313,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 
 			// Validate item selected
 			System.out.println("Item selected: " + Utils.getTextElement(driver, valueItemMultiSelectDropdownExpected));
-			itemsSelected(inputSelect, valueItemMultiSelectDropdownExpected);
+			Assert.assertTrue(itemsSelected(inputSelect, valueItemMultiSelectDropdownExpected));
 
 			// Refresh browser
 			driver.navigate().refresh();
@@ -330,7 +330,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 
 			// Validate item selected
 			System.out.println("Item selected: " + Utils.getTextElement(driver, valueItemMultiSelectDropdownExpected));
-			itemsSelected(inputSelect, valueItemMultiSelectDropdownExpected);
+			Assert.assertTrue(itemsSelected(inputSelect, valueItemMultiSelectDropdownExpected));
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -403,7 +403,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 			return driver.findElement(valueExpect).getText().equals(itemSelected.size() + " of 12 selected");
 		} else {
 			for (WebElement item : itemSelected) {
-				if (!driver.findElement(valueExpect).getText().equals(item.getText())) {
+				if (!driver.findElement(valueExpect).getText().contains(item.getText())) {
 					return false;
 				}
 			}
