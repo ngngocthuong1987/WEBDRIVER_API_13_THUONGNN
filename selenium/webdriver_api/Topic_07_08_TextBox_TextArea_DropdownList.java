@@ -2,6 +2,7 @@ package webdriver_api;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -26,6 +27,10 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	static final String WEBSITE_URL_TC02 = "https://automationfc.github.io/basic-form/index.html";
 	static final String WEBSITE_URL_JQUERY_TC03 = "http://jqueryui.com/resources/demos/selectmenu/default.html";
 	static final String WEBSITE_URL_ANGULAR_TC03 = "https://material.angular.io/components/select/examples";
+	static final String WEBSITE_URL_REACTJS_TC04 = "https://react.semantic-ui.com/modules/dropdown/";
+	static final String WEBSITE_URL_VUEJS_TC05 = "https://mikerodham.github.io/vue-dropdowns/";
+	static final String WEBSITE_URL_EDITABLE_TC06 = "http://indrimuska.github.io/jquery-editable-select/";
+	static final String WEBSITE_URL_MULTI_SELECT_TC07 = "http://multiple-select.wenzhixin.net.cn/examples#basic.html";
 	static final String HOME_PAGE_TITLE = "Guru99 Bank Manager HomePage";
 
 	// Setting some By object of elements xpath
@@ -70,8 +75,27 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 	By allItemsAgularDropdown = By.xpath("//div[contains(@class, 'mat-primary')]/mat-option");
 	By valueItemAgularDropdownExpected = By.xpath("//div[contains(@class, 'mat-select-value')]//span[text()=\"New York\"]");
 
+	// ReactJs dropdown test case
+	By reactJsDropdown = By.xpath("//div[text()='Select Friend']/following-sibling::div");
+	By allItemsReactJsDropdown = By.xpath("//div[@id='types-selection']/descendant::span");
+	By valueItemReactJsDropdownExpected = By.xpath("//div[@id='types-selection']/descendant::div[@class='text']");
 
+	// VueJs dropdown test case
+	By vueJsDropdown = By.xpath("//li[@class='dropdown-toggle']");
+	By allItemsVueJsDropdown = By.xpath("//ul[@class='dropdown-menu']/li");
+	By valueItemVueJsDropdownExpected = By.xpath("//li[@class='dropdown-toggle']");
 
+	// Editable dropdown test case
+	By editableDropdown = By.xpath("//div[@id='default-place']/input");
+	By allItemsEditableDropdown = By.xpath("//div[@id='default-place']/descendant::li");
+	By valueItemEditableDropdownExpected = By.xpath("//div[@id='default-place']/descendant::li[contains(@class,'es-visible')]");
+
+	// Multi select test case
+	By iframe = By.xpath("//iframe");
+	By multiSelectDropdown = By.xpath("//div[@id='example']/descendant::div[contains(@class, 'multiple-select')][1]/button[@class='ms-choice']");
+	By allItemsMultiSelectDropdown = By.xpath("//div[@id='example']/descendant::div[contains(@class, 'multiple-select')][1]/div[contains(@class, 'ms-drop')]/descendant::span");
+	By valueItemMultiSelectDropdownExpected = By.xpath("//div[@id='example']/descendant::div[contains(@class, 'multiple-select')][1]/button[@class='ms-choice']/span");
+	By inputSelect = By.xpath("//div[@id='example']/descendant::div[contains(@class, 'multiple-select')][1]/div[contains(@class, 'ms-drop')]/descendant::input");
 
 	// Setting varialbes
 	WebDriver driver;
@@ -236,6 +260,82 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		}
 	}
 
+	@Test
+	public void TC_04_ReactJsDropdown() {
+		try {
+			driver.get(WEBSITE_URL_REACTJS_TC04);
+			selectItemInDropdown(reactJsDropdown, allItemsReactJsDropdown, "Matt");
+			Assert.assertEquals(Utils.getTextElement(driver, valueItemReactJsDropdownExpected), "Matt");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void TC_05_VueJsDropdown() {
+		try {
+			driver.get(WEBSITE_URL_VUEJS_TC05);
+			selectItemInDropdown(vueJsDropdown, allItemsVueJsDropdown, "Second Option");
+			Assert.assertEquals(Utils.getTextElement(driver, valueItemVueJsDropdownExpected), "Second Option");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void TC_06_EditableDropdown() {
+		try {
+			driver.get(WEBSITE_URL_EDITABLE_TC06);
+			selectItemInEditableDropdown(editableDropdown, allItemsEditableDropdown, "Audi");
+			Assert.assertEquals(Utils.getTextElement(driver, valueItemEditableDropdownExpected), "Audi");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void TC_07_MultiSelectItem() {
+		try {
+			driver.get(WEBSITE_URL_MULTI_SELECT_TC07);
+			driver.switchTo().frame(driver.findElement(iframe));
+
+			// Select 5 items
+			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "May");
+			driver.findElement(multiSelectDropdown).click();
+			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "April");
+			driver.findElement(multiSelectDropdown).click();
+			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "February");
+			driver.findElement(multiSelectDropdown).click();
+			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "August");
+			driver.findElement(multiSelectDropdown).click();
+			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "January");
+			driver.findElement(multiSelectDropdown).click();
+
+			// Validate item selected
+			System.out.println("Item selected: " + Utils.getTextElement(driver, valueItemMultiSelectDropdownExpected));
+			itemsSelected(inputSelect, valueItemMultiSelectDropdownExpected);
+
+			// Refresh browser
+			driver.navigate().refresh();
+			driver.switchTo().frame(driver.findElement(iframe));
+
+			// Select 3 items
+			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "March");
+			driver.findElement(multiSelectDropdown).click();
+			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "November");
+			driver.findElement(multiSelectDropdown).click();
+			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "July");
+			driver.findElement(multiSelectDropdown).click();
+
+			// Validate item selected
+			System.out.println("Item selected: " + Utils.getTextElement(driver, valueItemMultiSelectDropdownExpected));
+			itemsSelected(inputSelect, valueItemMultiSelectDropdownExpected);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/*
 	 * The method get expected item in dropdown
 	 */
@@ -262,10 +362,56 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		}
 	}
 
+	/*
+	 * The method get expected item in editable dropdown
+	 */
+	public void selectItemInEditableDropdown(By dropdownBy, By allItemInDropdownBy, String expectedItemValue) throws InterruptedException {
+		// Click in dropdown for display all items
+		WebElement paretnDropdown = driver.findElement(dropdownBy);
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", paretnDropdown);
+		Thread.sleep(2000);
+		jsExecutor.executeScript("arguments[0].click();", paretnDropdown);
+		Thread.sleep(2000);
+		paretnDropdown.sendKeys(expectedItemValue);
+		Thread.sleep(2000);
+
+		// Wait all items loaded
+		waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(allItemInDropdownBy));
+
+		// Loop and get expected item
+		List<WebElement> allItems = driver.findElements(allItemInDropdownBy);
+		for (WebElement item : allItems) {
+			if (item.getText().equals(expectedItemValue)) {
+				jsExecutor.executeScript("arguments[0].scrollIntoView(true);", item);
+				Thread.sleep(1000);
+				item.click();
+				break;
+			}
+		}
+	}
+
+	/*
+	 * The method check items are selected
+	 */
+	public boolean itemsSelected (By allSelect, By valueExpect) {
+		// Get all select filter the selected
+		List<WebElement> selectionList = driver.findElements(allSelect);
+		List<WebElement> itemSelected = selectionList.stream().filter(s -> s.isSelected()).collect((Collectors.toList()));
+
+		if (itemSelected.size() > 3) {
+			return driver.findElement(valueExpect).getText().equals(itemSelected.size() + " of 12 selected");
+		} else {
+			for (WebElement item : itemSelected) {
+				if (!driver.findElement(valueExpect).getText().equals(item.getText())) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	@AfterClass
 	public void terminateBrowser() {
 		driver.quit();
 	}
-
-
 }
