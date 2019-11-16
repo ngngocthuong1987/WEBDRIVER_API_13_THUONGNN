@@ -300,15 +300,15 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 			driver.switchTo().frame(driver.findElement(iframe));
 
 			// Select 5 items
-			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "May");
+			selectItemInDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "May");
 			driver.findElement(multiSelectDropdown).click();
-			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "April");
+			selectItemInDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "April");
 			driver.findElement(multiSelectDropdown).click();
-			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "February");
+			selectItemInDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "February");
 			driver.findElement(multiSelectDropdown).click();
-			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "August");
+			selectItemInDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "August");
 			driver.findElement(multiSelectDropdown).click();
-			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "January");
+			selectItemInDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "January");
 			driver.findElement(multiSelectDropdown).click();
 
 			// Validate item selected
@@ -317,14 +317,15 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 
 			// Refresh browser
 			driver.navigate().refresh();
+			Thread.sleep(3000);
 			driver.switchTo().frame(driver.findElement(iframe));
 
 			// Select 3 items
-			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "March");
+			selectItemInDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "March");
 			driver.findElement(multiSelectDropdown).click();
-			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "November");
+			selectItemInDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "November");
 			driver.findElement(multiSelectDropdown).click();
-			selectItemInEditableDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "July");
+			selectItemInDropdown(multiSelectDropdown, allItemsMultiSelectDropdown, "July");
 			driver.findElement(multiSelectDropdown).click();
 
 			// Validate item selected
