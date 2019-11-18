@@ -38,7 +38,6 @@ public class Topic_06_Web_Browser_Element {
 
 	@BeforeClass
 	public void launchBrowser() {
-
 		System.setProperty("webdriver.chrome.driver", "libraries/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

@@ -126,7 +126,6 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 
 	@BeforeClass
 	public void launchBrowser() {
-
 		System.setProperty("webdriver.chrome.driver", "libraries/chromedriver.exe");
 		driver = new ChromeDriver();
 		waitExplicit = new WebDriverWait(driver, 30);
