@@ -176,15 +176,15 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		driver.findElement(createCustomerSubmitButton).click();
 
 		// Verify new informations are created
-		String customerId = Utils.getTextElement(driver, customerIdVerify);
-		Assert.assertTrue(Utils.getTextElement(driver, customerNameVerify).equals(customerName));
-		Assert.assertTrue(Utils.getTextElement(driver, birthDayVerify).equals(Utils.changeFormatDate(dateOfBirth)));
-		Assert.assertTrue(Utils.getTextElement(driver, addressVerify).equals(addressNew));
-		Assert.assertTrue(Utils.getTextElement(driver, cityVerify).equals(cityNew));
-		Assert.assertTrue(Utils.getTextElement(driver, stateVerify).equals(stateNew));
-		Assert.assertTrue(Utils.getTextElement(driver, pinVerify).equals(pinNew));
-		Assert.assertTrue(Utils.getTextElement(driver, mobileNumberVerify).equals(mobileNumberNew));
-		Assert.assertTrue(Utils.getTextElement(driver, emailVerify).equals(emailNew));
+		String customerId = Utils.getTextElement(driver.findElement(customerIdVerify));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(customerNameVerify)).equals(customerName));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(birthDayVerify)).equals(Utils.changeFormatDate(dateOfBirth)));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(addressVerify)).equals(addressNew));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(cityVerify)).equals(cityNew));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(stateVerify)).equals(stateNew));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(pinVerify)).equals(pinNew));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(mobileNumberVerify)).equals(mobileNumberNew));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(emailVerify)).equals(emailNew));
 
 		// Go to edit customer
 		driver.findElement(editCustomerLink).click();
@@ -196,21 +196,21 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		Assert.assertTrue(driver.findElement(addressTextArea).getAttribute("value").equals(addressNew));
 
 		// Edit information of some fields not disable
-		Utils.sendKeyElement(driver, addressTextArea, addressEdit);
-		Utils.sendKeyElement(driver, cityInput, cityEdit);
-		Utils.sendKeyElement(driver, stateInput, stateEdit);
-		Utils.sendKeyElement(driver, pinInput, pinEdit);
-		Utils.sendKeyElement(driver, mobileNumberInput, mobileNumberEdit);
-		Utils.sendKeyElement(driver, emailInput, emailEdit);
+		Utils.sendKeyElement(driver.findElement(addressTextArea), addressEdit);
+		Utils.sendKeyElement(driver.findElement(cityInput), cityEdit);
+		Utils.sendKeyElement(driver.findElement(stateInput), stateEdit);
+		Utils.sendKeyElement(driver.findElement(pinInput), pinEdit);
+		Utils.sendKeyElement(driver.findElement(mobileNumberInput), mobileNumberEdit);
+		Utils.sendKeyElement(driver.findElement(emailInput), emailEdit);
 		driver.findElement(createCustomerSubmitButton).click();
 
 		// Verify new informations after edit
-		Assert.assertTrue(Utils.getTextElement(driver, addressVerify).equals(addressEdit));
-		Assert.assertTrue(Utils.getTextElement(driver, cityVerify).equals(cityEdit));
-		Assert.assertTrue(Utils.getTextElement(driver, stateVerify).equals(stateEdit));
-		Assert.assertTrue(Utils.getTextElement(driver, pinVerify).equals(pinEdit));
-		Assert.assertTrue(Utils.getTextElement(driver, mobileNumberVerify).equals(mobileNumberEdit));
-		Assert.assertTrue(Utils.getTextElement(driver, emailVerify).equals(emailEdit));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(addressVerify)).equals(addressEdit));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(cityVerify)).equals(cityEdit));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(stateVerify)).equals(stateEdit));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(pinVerify)).equals(pinEdit));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(mobileNumberVerify)).equals(mobileNumberEdit));
+		Assert.assertTrue(Utils.getTextElement(driver.findElement(emailVerify)).equals(emailEdit));
 	}
 
 	@Test
@@ -242,7 +242,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		try {
 			driver.get(WEBSITE_URL_JQUERY_TC03);
 			selectItemInDropdown(jQueryDropdown, allItemsJQueryDropdown, "19");
-			Assert.assertEquals(Utils.getTextElement(driver, valueItemJQueryDropdownExpected), "19");
+			Assert.assertEquals(Utils.getTextElement(driver.findElement(valueItemJQueryDropdownExpected)), "19");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -253,7 +253,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		try {
 			driver.get(WEBSITE_URL_ANGULAR_TC03);
 			selectItemInDropdown(agularDropdown, allItemsAgularDropdown, "New York");
-			Assert.assertEquals(Utils.getTextElement(driver, valueItemAgularDropdownExpected), "New York");
+			Assert.assertEquals(Utils.getTextElement(driver.findElement(valueItemAgularDropdownExpected)), "New York");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -264,7 +264,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		try {
 			driver.get(WEBSITE_URL_REACTJS_TC04);
 			selectItemInDropdown(reactJsDropdown, allItemsReactJsDropdown, "Matt");
-			Assert.assertEquals(Utils.getTextElement(driver, valueItemReactJsDropdownExpected), "Matt");
+			Assert.assertEquals(Utils.getTextElement(driver.findElement(valueItemReactJsDropdownExpected)), "Matt");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -275,7 +275,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		try {
 			driver.get(WEBSITE_URL_VUEJS_TC05);
 			selectItemInDropdown(vueJsDropdown, allItemsVueJsDropdown, "Second Option");
-			Assert.assertEquals(Utils.getTextElement(driver, valueItemVueJsDropdownExpected), "Second Option");
+			Assert.assertEquals(Utils.getTextElement(driver.findElement(valueItemVueJsDropdownExpected)), "Second Option");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -286,7 +286,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 		try {
 			driver.get(WEBSITE_URL_EDITABLE_TC06);
 			selectItemInEditableDropdown(editableDropdown, allItemsEditableDropdown, "Audi");
-			Assert.assertEquals(Utils.getTextElement(driver, valueItemEditableDropdownExpected), "Audi");
+			Assert.assertEquals(Utils.getTextElement(driver.findElement(valueItemEditableDropdownExpected)), "Audi");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -311,7 +311,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 			driver.findElement(multiSelectDropdown).click();
 
 			// Validate item selected
-			System.out.println("Item selected: " + Utils.getTextElement(driver, valueItemMultiSelectDropdownExpected));
+			System.out.println("Item selected: " + Utils.getTextElement(driver.findElement(valueItemMultiSelectDropdownExpected)));
 			Assert.assertTrue(itemsSelected(inputSelect, valueItemMultiSelectDropdownExpected));
 
 			// Refresh browser
@@ -328,7 +328,7 @@ public class Topic_07_08_TextBox_TextArea_DropdownList {
 			driver.findElement(multiSelectDropdown).click();
 
 			// Validate item selected
-			System.out.println("Item selected: " + Utils.getTextElement(driver, valueItemMultiSelectDropdownExpected));
+			System.out.println("Item selected: " + Utils.getTextElement(driver.findElement(valueItemMultiSelectDropdownExpected)));
 			Assert.assertTrue(itemsSelected(inputSelect, valueItemMultiSelectDropdownExpected));
 
 		} catch (InterruptedException e) {

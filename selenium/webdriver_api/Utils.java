@@ -4,8 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 
 public class Utils {
 
@@ -41,16 +41,42 @@ public class Utils {
 	/*
 	 * The method get text of web element
 	 */
-	public static String getTextElement(WebDriver driver, By by) {
-		return driver.findElement(by).getText();
+	public static String getTextElement(WebElement element) {
+		return element.getText();
 	}
 
 	/*
 	 * The method get text of web element
 	 */
-	public static void sendKeyElement(WebDriver driver, By by, String value) {
-		driver.findElement(by).clear();
-		driver.findElement(by).sendKeys(value);
+	public static void sendKeyElement(WebElement element, String value) {
+		element.clear();
+		element.sendKeys(value);
 	}
 
+	/*
+	 * The method click Web Element by javascript
+	 */
+	public static void clickElementByJs(JavascriptExecutor jsExecutor, WebElement element) {
+		jsExecutor.executeScript("arguments[0].click();", element);
+	}
+
+	/*
+	 * The method scroll to Web Element by javascript
+	 */
+	public static void scrollToElementByJs(JavascriptExecutor jsExecutor, WebElement element) {
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", element);
+	}
+
+	/*
+	 * The method by pass authencation
+	 */
+	public static String byPassAuthencationAlert(String url, String userName, String password) {
+		String [] splitUrl = url.split("//");
+		return splitUrl[0].concat("//")
+						.concat(userName)
+						.concat(":")
+						.concat(password)
+						.concat("@")
+						.concat(splitUrl[1]);
+	}
 }
