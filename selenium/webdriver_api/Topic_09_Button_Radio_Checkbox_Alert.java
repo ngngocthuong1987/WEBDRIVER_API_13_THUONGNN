@@ -65,12 +65,12 @@ public class Topic_09_Button_Radio_Checkbox_Alert {
 	public void TC_01_Button() {
 		driver.get(WEBSITE_URL_TC_01);
 		Utils.clickElementByJs(jsExecutor, driver.findElement(myAccountLink));
-		sleepBrowser();
+		Utils.sleepBrowser();
 		String url = driver.getCurrentUrl();
 		Assert.assertEquals(urlExpected01, url);
 
 		Utils.clickElementByJs(jsExecutor, driver.findElement(createAccountButton));
-		sleepBrowser();
+		Utils.sleepBrowser();
 		Assert.assertEquals(urlExpected02, driver.getCurrentUrl());
 	}
 
@@ -80,12 +80,12 @@ public class Topic_09_Button_Radio_Checkbox_Alert {
 
 		// Check checkbox
 		Utils.clickElementByJs(jsExecutor, driver.findElement(inputCheckBox));
-		sleepBrowser();
+		Utils.sleepBrowser();
 		Assert.assertTrue(driver.findElement(inputCheckBox).isSelected());
 
 		// Uncheck checkbox
 		Utils.clickElementByJs(jsExecutor, driver.findElement(inputCheckBox));
-		sleepBrowser();
+		Utils.sleepBrowser();
 		Assert.assertFalse(driver.findElement(inputCheckBox).isSelected());
 	}
 
@@ -97,7 +97,7 @@ public class Topic_09_Button_Radio_Checkbox_Alert {
 		boolean isSelected = driver.findElement(inputRadioButton).isSelected();
 		if (!isSelected) {
 			Utils.clickElementByJs(jsExecutor, driver.findElement(inputRadioButton));
-			sleepBrowser();
+			Utils.sleepBrowser();
 			Assert.assertTrue(driver.findElement(inputRadioButton).isSelected());
 		}
 	}
@@ -106,11 +106,11 @@ public class Topic_09_Button_Radio_Checkbox_Alert {
 	public void TC_04_AcceptAlert() throws Exception {
 		driver.get(WEBSITE_URL_TC_04);
 		Utils.scrollToElementByJs(jsExecutor, driver.findElement(buttonJsAlert));
-		sleepBrowser();
+		Utils.sleepBrowser();
 
 		// Click button Js Alert
 		Utils.clickElementByJs(jsExecutor, driver.findElement(buttonJsAlert));
-		sleepBrowser();
+		Utils.sleepBrowser();
 
 		// Switch to Alert
 		Alert alert = driver.switchTo().alert();
@@ -123,11 +123,11 @@ public class Topic_09_Button_Radio_Checkbox_Alert {
 	public void TC_05_ConfirmAlert() throws Exception {
 		driver.get(WEBSITE_URL_TC_04);
 		Utils.scrollToElementByJs(jsExecutor, driver.findElement(buttonJsConfirmAlert));
-		sleepBrowser();
+		Utils.sleepBrowser();
 
 		// Click button Js Alert
 		Utils.clickElementByJs(jsExecutor, driver.findElement(buttonJsConfirmAlert));
-		sleepBrowser();
+		Utils.sleepBrowser();
 		Alert alert = driver.switchTo().alert();
 		Assert.assertEquals(alert.getText(), CONFIRM_JS_MESSAGE);
 		alert.dismiss();
@@ -138,17 +138,17 @@ public class Topic_09_Button_Radio_Checkbox_Alert {
 	public void TC_06_PromptAlert() throws Exception {
 		driver.get(WEBSITE_URL_TC_04);
 		Utils.scrollToElementByJs(jsExecutor, driver.findElement(buttonJsPromptmAlert));
-		sleepBrowser();
+		Utils.sleepBrowser();
 
 		// Click button Alert
 		Utils.clickElementByJs(jsExecutor, driver.findElement(buttonJsPromptmAlert));
-		sleepBrowser();
+		Utils.sleepBrowser();
 		Alert alert = driver.switchTo().alert();
 		Assert.assertEquals(alert.getText(), PROMPT_JS_MESSAGE);
 
 		// Click button Alert
 		alert.sendKeys(inputPromptAlert);
-		sleepBrowser();
+		Utils.sleepBrowser();
 		alert.accept();
 		Assert.assertEquals(Utils.getTextElement(driver.findElement(resultText)), "You entered: ".concat(inputPromptAlert));
 	}
@@ -159,18 +159,6 @@ public class Topic_09_Button_Radio_Checkbox_Alert {
 		String url = driver.findElement(basicAuthenLink).getAttribute("href");
 		driver.get(Utils.byPassAuthencationAlert(url, userName, password));
 		Assert.assertEquals(Utils.getTextElement(driver.findElement(authenText)), AUTHEN_SUCCESS_MESSAGE);
-	}
-
-	/*
-	 * Wait browser in some seconds
-	 */
-	public void sleepBrowser() {
-		// Sleep browser 2s
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@AfterClass

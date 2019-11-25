@@ -79,4 +79,16 @@ public class Utils {
 						.concat("@")
 						.concat(splitUrl[1]);
 	}
+
+	/*
+	 * Wait browser in some seconds
+	 */
+	public static void sleepBrowser() {
+		// Sleep browser 3s
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
