@@ -75,7 +75,7 @@ public class Topic_10_User_Interactions  {
 
 
 	@BeforeClass
-	public void beforeClass() {
+	public void launchBrowser() {
 
 		// Setting disable notification in Chrome
 		Map<String, Object> prefs = new HashMap<String, Object>();
@@ -214,7 +214,7 @@ public class Topic_10_User_Interactions  {
 	}
 
 	@AfterClass
-	public void afterClass() {
+	public void terminateBrowser() {
 		driver.quit();
 	}
 }
