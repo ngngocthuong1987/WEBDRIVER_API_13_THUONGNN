@@ -12,6 +12,7 @@ import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -173,5 +174,31 @@ public class Utils {
 
 		// Drop
 		robot.mouseRelease(InputEvent.BUTTON1_MASK);
+	}
+
+	/*
+	 * Switch to another window by page tile
+	 */
+	public static void switchToWindowByTile(WebDriver driver, String title) {
+		Set<String> allWindow = driver.getWindowHandles();
+		for (String runWindow : allWindow) {
+			driver.switchTo().window(runWindow);
+			if (driver.getTitle().equals(title)) {
+				break;
+			}
+		}
+	}
+
+	/*
+	 * Close all window with out parrent window
+	 */
+	public static void closeAllWindowsWithoutParent(WebDriver driver, String parrentWindow) {
+		Set<String> allWindow = driver.getWindowHandles();
+		for (String runWindow : allWindow) {
+			if (!runWindow.equals(parrentWindow)) {
+				driver.switchTo().window(runWindow);
+				driver.close();
+			}
+		}
 	}
 }
