@@ -15,7 +15,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Topic_11_Template2  {
+
+public class Topic_11_Popup_Frame_Iframe {
 
 	WebDriver driver;
 
