@@ -1,5 +1,10 @@
 package webdriver_api;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -100,6 +105,49 @@ public class Topic_14_Upload_File {
 		Assert.assertTrue(driver.findElement(By.xpath("//a[text()='"+ fileImage01 +"']")).isDisplayed());
 		Assert.assertTrue(driver.findElement(By.xpath("//a[text()='"+ fileImage02 +"']")).isDisplayed());
 		Assert.assertTrue(driver.findElement(By.xpath("//a[text()='"+ fileImage03 +"']")).isDisplayed());
+	}
+
+	@Test
+	public void TC_03_Upload_By_Robot_Class() throws AWTException, InterruptedException {
+		driver.get("http://blueimp.github.com/jQuery-File-Upload/");
+		WebElement addFileButton = driver.findElement(By.xpath("//span[contains(@class, 'fileinput-button')]"));
+		addFileButton.click();
+
+		StringSelection select = new StringSelection(filePath01);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(select, null);
+
+		Robot robot = new Robot();
+		Thread.sleep(2000);
+
+		//Press Enter
+		robot.keyPress(KeyEvent.VK_ENTER);
+		robot.keyRelease(KeyEvent.VK_ENTER);
+
+		//Press Ctrl + V
+		robot.keyPress(KeyEvent.VK_CONTROL);
+		robot.keyPress(KeyEvent.VK_V);
+
+		//Release Ctrl + V
+		robot.keyRelease(KeyEvent.VK_CONTROL);
+		robot.keyRelease(KeyEvent.VK_V);
+		Thread.sleep(2000);
+
+		//Press Enter
+		robot.keyPress(KeyEvent.VK_ENTER);
+		robot.keyRelease(KeyEvent.VK_ENTER);
+
+		Thread.sleep(2000);
+
+		//Verify image display
+		Assert.assertTrue(driver.findElement(By.xpath("//p[text()='"+ fileImage01 +"']")).isDisplayed());
+
+		//Click buttons upload
+		WebElement uploadButton = driver.findElement(By.xpath("//button[@class='btn btn-primary start']"));
+		uploadButton.click();
+		Thread.sleep(2000);
+
+		//Verify image upload
+		Assert.assertTrue(driver.findElement(By.xpath("//a[text()='"+ fileImage01 +"']")).isDisplayed());
 	}
 
 	@AfterClass
