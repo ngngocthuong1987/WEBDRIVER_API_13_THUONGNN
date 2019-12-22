@@ -22,6 +22,9 @@ public class Topic_15_WebDriverWait {
 	By loginButtonBy = By.xpath("//input[@name='btnLogin']");
 	By fileUploadBy = By.xpath("//a[text()='File Upload']");
 	By emailTextBoxBy = By.xpath("//input[@name='emailid']");
+	By signInButtonBy = By.xpath("//button[@id='SubmitLogin']");
+	By messageErrorBy = By.xpath("//div[@class='alert alert-danger']");
+	By messageErrorNotInDOMBy = By.xpath("//div[@class='alert alert-danger' and not (@id='create_account_error')]");
 
 	@BeforeClass
 	public void launchBrowser() {
@@ -54,7 +57,7 @@ public class Topic_15_WebDriverWait {
 	}
 
 	@Test
-	public void TC_02_Invisible() {
+	public void TC_01_Invisible() {
 		driver.get(TC01_URL);
 
 		//Fail - Element displayed in UI and have in DOM
@@ -65,6 +68,20 @@ public class Topic_15_WebDriverWait {
 
 		//Pass - Element do not displayed in UI and do not have in DOM
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(emailTextBoxBy));
+	}
+
+	@Test
+	public void TC_O1_Presence() {
+		driver.get("http://automationpractice.com/index.php?controller=authentication&back=my-account");
+
+		//Pass - Element displayed in UI and have in DOM
+		explicitWait.until(ExpectedConditions.presenceOfElementLocated(signInButtonBy));
+
+		//Pass - Element do not displayed in UI and have in DOM
+		explicitWait.until(ExpectedConditions.presenceOfElementLocated(messageErrorBy));
+
+		//Fail - Element do not displayed in UI and do not have in DOM
+		explicitWait.until(ExpectedConditions.presenceOfElementLocated(messageErrorNotInDOMBy));
 	}
 
 	@AfterClass
