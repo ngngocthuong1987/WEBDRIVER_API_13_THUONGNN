@@ -1,5 +1,6 @@
 package webdriver_api;
 
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -7,16 +8,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.google.common.base.Predicate;
+
+
 public class Topic_15_WebDriverWait {
 
 	WebDriver driver;
 	WebDriverWait explicitWait;
+	FluentWait<WebElement> fluentWait;
 
 	static final String TC01_URL ="http://demo.guru99.com/v4/";
 
@@ -35,6 +41,8 @@ public class Topic_15_WebDriverWait {
 	By daySelected = By.xpath("//a[text()='26']/parent::td[@class='rcSelected']");
 	By textDaySelected = By.xpath("//span[@id='ctl00_ContentPlaceholder1_Label1']");
 	By loadingAjaxIcon = By.xpath("//div[@class='raDiv']");
+
+	By countDown = By.xpath("//div[@id='javascript_countdown_time']");
 
 	@BeforeClass
 	public void launchBrowser() {
@@ -165,6 +173,23 @@ public class Topic_15_WebDriverWait {
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(daySelected));
 		Assert.assertEquals(driver.findElement(textDaySelected).getText(), "Thursday, December 26, 2019");
 
+	}
+
+	@Test
+	public void TC_06_FluentWait() {
+		explicitWait = new WebDriverWait(driver, 15);
+		driver.get("https://automationfc.github.io/fluent-wait/");
+
+		WebElement countDownElement = driver.findElement(countDown);
+		explicitWait.until(ExpectedConditions.visibilityOf(countDownElement));
+
+		Predicate<WebElement> fluentWaitCondition = element -> {return element.getText().endsWith("02");};
+
+		fluentWait = new FluentWait<WebElement>(countDownElement);
+		fluentWait.withTimeout(15, TimeUnit.SECONDS)
+					.pollingEvery(1, TimeUnit.SECONDS)
+					.ignoring(NoSuchElementException.class)
+					.until(fluentWaitCondition);
 	}
 
 	@AfterClass
