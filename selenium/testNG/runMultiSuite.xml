@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Multi Suite" parallel="false">
+	<suite-files>
+		<suite-file path="runTestCase03.xml" />
+		<suite-file path="runTestCase04.xml" />
+	</suite-files>
+</suite> <!-- Suite -->

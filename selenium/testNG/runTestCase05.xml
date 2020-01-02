@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="TC05" parallel="tests" thread-count="3">
+	<test name="Run on firefox">
+		<parameter name="browser" value="firefox" />
+		<classes>
+			<class name="testNG.TestNG_05_Parameter"/>
+		</classes>
+	</test>
+	<test name="Run on chrome">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="testNG.TestNG_05_Parameter"/>
+		</classes>
+	</test>
+	
+	<test name="Run on chrome headless">
+		<parameter name="browser" value="chrome_headless" />
+		<classes>
+			<class name="testNG.TestNG_05_Parameter"/>
+		</classes>
+	</test>
+</suite>
