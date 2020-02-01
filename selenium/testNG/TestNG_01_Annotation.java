@@ -57,7 +57,7 @@ public class TestNG_01_Annotation {
 
 	@AfterClass
 	public void afterClass() {
-		System.out.println("----- AFTER METHOD -----");
+		System.out.println("----- AFTER CLASS -----");
 	}
 
 	@BeforeTest
